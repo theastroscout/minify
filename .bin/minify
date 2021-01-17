@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const Argv = process.argv;
+const files = Argv.slice(2);
+const [In] = files;
+const minify = require("../minify");
+
+go();
+
+async function go(){
+	let result = await minify(In);
+	console.log(result);
+}

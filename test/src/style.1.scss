@@ -1,0 +1,18 @@
+:root {
+	--green: rgba(0,255,32,.5);
+}
+$black: #171717;
+$green: #38aeae;
+
+@import "style.2";
+
+.view {
+	display: grid;
+
+	>.mood {
+		display: flex;
+		justify-content: space-between;
+		background: var(--green);
+		mask: no-repeat center center/contain;
+	}
+}
