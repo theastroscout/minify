@@ -8,7 +8,7 @@
     "minify": "node .bin/minify"
   },
   "bin": {
-    "minify": "bin/minify.js"
+    "minify": ".bin/minify.js"
   },
   "repository": {
     "type": "git",
