@@ -1,0 +1,16 @@
+h1 {
+	column-count: 2;
+	color: $black;
+
+	>.name {
+		color: $green;
+	}
+}
+
+.view {
+	background: red;
+	
+	.redBlock {
+		background: $green;
+	}
+}

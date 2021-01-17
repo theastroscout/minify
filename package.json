@@ -1,0 +1,35 @@
+{
+  "name": "@hqdaemon/minify",
+  "version": "1.0.0",
+  "description": "Compose & Minify js, css, and scss.",
+  "main": "lib/minify.js",
+  "scripts": {
+    "test": "node test/app test/src/file.1.js test/src/file.2.js",
+    "minify": "node .bin/minify"
+  },
+  "bin": {
+    "minify": "bin/minify.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hqdaemon/minify.git"
+  },
+  "author": {
+    "name": "HQ",
+    "url": "https://hqmode.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hqdaemon/minify/issues"
+  },
+  "homepage": "https://github.com/hqdaemon/minify#readme",
+  "dependencies": {
+    "@hqdaemon/jscompose": "^1.0.2",
+    "autoprefixer": "^10.2.1",
+    "browserslist": "^4.16.1",
+    "minify": "^6.0.1",
+    "postcss": "^8.2.4",
+    "postcss-css-variables": "^0.17.0",
+    "sass": "^1.32.4"
+  }
+}
