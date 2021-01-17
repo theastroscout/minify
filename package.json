@@ -1,6 +1,6 @@
 {
   "name": "@hqdaemon/minify",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Compose & Minify js, css, and scss.",
   "main": "lib/minify.js",
   "scripts": {
