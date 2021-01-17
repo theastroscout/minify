@@ -9,6 +9,8 @@ npm install @hqdaemon/minify
 ```
 
 ## Usage
+
+### Node.js
 ```js
 const minfy = require("@hqdaemon/minify");
 
@@ -21,6 +23,12 @@ minfy("/path_to_file/script.js", {to: "/path_to_new_file/new_file_name.js"});
 minfy("/path_to_file/style.scss", {to: "/path_to_new_file/new_file_name.css"});
 
 // Return false or composed string
+```
+
+### CLI
+```
+minify file.js > file.min.js
+minify style.scss > style.min.css
 ```
 
 <br />
