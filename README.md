@@ -35,6 +35,7 @@ minify dom.html > dom.min.html
 ```
 
 <br />
+
 ## ToDo
 1. Add the ability to work with strings
 2. Add empty string check
