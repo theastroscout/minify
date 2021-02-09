@@ -13,5 +13,8 @@ let app = async () => {
 
 	let scssToFileResult = await minify("test/src/style.1.scss",{to:"test/bundle/style.css"});
 	console.log(`Minify SCSS To File: ${scssToFileResult}\n`);
+
+	let htmlToFileResult = await minify("test/src/dom.html",{to:"test/bundle/dom.html"});
+	console.log(`Minify HTML To File: ${htmlToFileResult}\n`);
 };
 app();
