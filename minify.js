@@ -32,7 +32,7 @@
 		}
 	};
 
-	var supported = ["js","scss","css"];
+	var supported = ["js","scss","css","html"];
 
 	var minify = async function(files,options={}){
 		if(typeof files === "string"){
@@ -57,6 +57,8 @@
 			let fileStr;
 			if(fileType === "js"){
 				fileStr = jscompose(file);
+			} else if (fileType === "html"){
+				fileStr = fs.readFileSync(file).toString();
 			} else {
 				if(fileType === "scss"){
 					fileStr = sass.renderSync({

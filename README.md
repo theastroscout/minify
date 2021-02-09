@@ -17,10 +17,12 @@ const minify = require("@hqdaemon/minify");
 // To String
 let jsResult = await minify("/path_to_file/script.js");
 let cssResult = await minify("/path_to_file/style.scss");
+let htmlResult = await minify("/path_to_file/dom.html");
 
 // To File
 minify("/path_to_file/script.js", {to: "/path_to_new_file/new_file_name.js"});
 minify("/path_to_file/style.scss", {to: "/path_to_new_file/new_file_name.css"});
+minify("/path_to_file/dom.html", {to: "/path_to_new_file/dom.html"});
 
 // Return false or composed string
 ```
@@ -29,6 +31,7 @@ minify("/path_to_file/style.scss", {to: "/path_to_new_file/new_file_name.css"});
 ```
 minify file.js > file.min.js
 minify style.scss > style.min.css
+minify dom.html > dom.min.html
 ```
 
 <br />
