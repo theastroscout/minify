@@ -1,5 +1,5 @@
 # Minify
-Compose &amp; Minify js, css, and scss.
+Compose &amp; Minify html, js, css, and scss.
 
 <br/>
 
