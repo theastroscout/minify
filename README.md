@@ -12,15 +12,15 @@ npm install @hqdaemon/minify
 
 ### Node.js
 ```js
-const minfy = require("@hqdaemon/minify");
+const minify = require("@hqdaemon/minify");
 
 // To String
-let jsResult = await minfy("/path_to_file/script.js");
-let cssResult = await minfy("/path_to_file/style.scss");
+let jsResult = await minify("/path_to_file/script.js");
+let cssResult = await minify("/path_to_file/style.scss");
 
 // To File
-minfy("/path_to_file/script.js", {to: "/path_to_new_file/new_file_name.js"});
-minfy("/path_to_file/style.scss", {to: "/path_to_new_file/new_file_name.css"});
+minify("/path_to_file/script.js", {to: "/path_to_new_file/new_file_name.js"});
+minify("/path_to_file/style.scss", {to: "/path_to_new_file/new_file_name.css"});
 
 // Return false or composed string
 ```
