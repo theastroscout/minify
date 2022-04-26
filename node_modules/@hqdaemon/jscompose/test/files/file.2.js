@@ -1,0 +1,1 @@
+// There is file.2.js content
