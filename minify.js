@@ -1,6 +1,19 @@
 'use strict';
 
+/*
+
+Minify Library
+
+*/
+
 (() => {
+
+	/*
+
+	Required libraries
+
+	*/
+
 	const fs = require("fs");
 
 	const m = require("minify");
@@ -12,6 +25,12 @@
 	const postcss = require("postcss");
 	const cssvariables = require("postcss-css-variables");
 	const autoprefixer = require("autoprefixer");
+
+	/*
+
+	Options
+
+	*/
 
 	const o = {
 		html: {
@@ -32,14 +51,31 @@
 		}
 	};
 
-	var supported = ["js","scss","css","html"];
+	/*
 
-	var minify = async function(files,options={}){
+	Supported extentions
+
+	*/
+
+	let supported = ["js","scss","css","html"];
+
+	/*
+
+	Main object
+
+	*/
+
+	let minify = async (files, options={}) => {
+
 		if(typeof files === "string"){
 			files = [files];
 		}
+
 		let fileOutput = "";
 		let fileType;
+
+		// Parse Files
+
 		for(let file of files){
 			if(!fs.existsSync(file)){
 				continue;
@@ -55,6 +91,7 @@
 			}
 
 			let fileStr;
+
 			if(fileType === "js"){
 				fileStr = jscompose(file);
 			} else if (fileType === "html"){
@@ -72,9 +109,11 @@
 			}
 			fileOutput += fileStr;
 		}
+
 		if(fileType === undefined){
 			return false;
 		}
+
 		fileType = (fileType === "scss")?"css":fileType;
 		let resultFile = await m[fileType](fileOutput,o);
 
@@ -93,7 +132,7 @@
 		return true;
 	};
 
-	minify.css = async function(css){
+	minify.css = async css => {
 		let result = await postcss([
 				cssvariables(),
 				autoprefixer({overrideBrowserslist: bList})
