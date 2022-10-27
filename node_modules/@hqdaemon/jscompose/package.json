@@ -1,6 +1,6 @@
 {
   "name": "@hqdaemon/jscompose",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Compose Your JavaScript Files Into One Bundle Including Required Files",
   "main": "jscompose.js",
   "scripts": {
