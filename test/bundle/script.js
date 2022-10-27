@@ -1,1 +1,1 @@
-(e=>{(()=>{let r=requiredModule3(e);requiredModule2(r)})()})(params);var requiredModule2=function(e){return"This is my app - "+e},requiredModule3=function(e){return"3d module "+e};
+(r=>{var n=()=>{let n=function(r){return"3d module "+r}(r);return function(r){return"This is my app - "+r}(n)};n()})(params);
