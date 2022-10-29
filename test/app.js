@@ -1,5 +1,5 @@
 process.env.test = true;
-const minify = require("../minify");
+import minify from "../minify.js";
 
 let test = async () => {
 	let jsResult = await minify("test/src/script.1.js");
