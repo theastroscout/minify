@@ -2,195 +2,194 @@
 
 /*
 
-Minify Library
+Minify Module
 
 */
 
-(() => {
+/*
 
-	/*
+Required libraries
 
-	Required libraries
+*/
 
-	*/
 
-	const fs = require("fs");
+import fs from "fs";
 
-	const browserslist = require("browserslist");
-	const bList = browserslist("last 3 versions, > 5%");
-	const sass = require("sass");
-	const postcss = require("postcss");
-	const cssvariables = require("postcss-css-variables");
-	const autoprefixer = require("autoprefixer");
+import browserslist from "browserslist";
+const bList = browserslist("last 3 versions, > 5%");
 
-	const m = require("minify");
-	const jscompose = require("@hqdaemon/jscompose");
+import sass from "sass";
+import postcss from "postcss";
+import cssvariables from "postcss-css-variables";
+import autoprefixer from "autoprefixer";
+import { minify as m } from "minify";
+import jscompose from "@hqdaemon/jscompose";
 
-	/*
 
-	Options
+/*
 
-	*/
+Options
 
-	const o = {
-		html: {
-			removeAttributeQuotes: false,
-			removeOptionalTags: false,
-			minifyCSS: false,
-			ignoreCustomFragments: [/\{[\s\S]*?\}/],
-			caseSensitive: true
-		},
-		css: {
-			compatibility: "*",
-		},
-		js: {
-			// ecma: 5,
-		},
-		img: {
-			maxSize: 4096
-		}
-	};
+*/
 
-	/*
+const o = {
+	html: {
+		removeAttributeQuotes: false,
+		removeOptionalTags: false,
+		minifyCSS: false,
+		ignoreCustomFragments: [/\{[\s\S]*?\}/],
+		caseSensitive: true
+	},
+	css: {
+		compatibility: "*",
+	},
+	js: {
+		// ecma: 5,
+	},
+	img: {
+		maxSize: 4096
+	}
+};
 
-	Supported extentions
+/*
 
-	*/
+Supported extentions
 
-	let supported = ["js","scss","css","html"];
+*/
 
-	/*
+let supported = ["js","scss","css","html"];
 
-	Main object
+/*
 
-	*/
+Main object
 
-	let minify = async (files, options={}) => {
+*/
 
-		if(typeof files === "string"){
-			files = [files];
-		}
+let minify = async (files, options={}) => {
 
-		let fileOutput = "";
-		let fileType;
-
-		/*
-
-		Parse Files
-
-		*/
-
-		for(let file of files){
-			if(!fs.existsSync(file)){
-				continue;
-			}
-
-			let ext = file.match(/\.([^.]+)$/);
-			if(fileType === undefined){
-				if(ext === null || !supported.includes(ext[1])){
-					continue;
-				}
-				ext = ext[1];
-				fileType = ext;
-			}
-
-			let fileStr;
-
-			if(fileType === "js"){
-
-				/*
-
-				JavaScript
-
-				*/
-
-				fileStr = jscompose(file);
-			} else if (fileType === "html"){
-
-				/*
-
-				HTML
-
-				*/
-
-				fileStr = fs.readFileSync(file).toString();
-			} else {
-
-				/*
-
-				SCSS & CSS
-
-				*/
-
-				if(fileType === "scss"){
-					fileStr = sass.renderSync({
-						file: file
-					});
-					fileStr = fileStr.css.toString();
-				} else if(fileType === "css"){
-					fileStr = fs.readFileSync(file).toString();
-				}
-				fileStr = await minify.css(fileStr);
-			}
-
-			fileOutput += fileStr;
-		}
-
-		if(fileType === undefined){
-			return false;
-		}
-
-		fileType = fileType === "scss" ? "css" : fileType;
-		let resultFile = fileOutput ? await m[fileType](fileOutput,o) : "";
-
-		if(options.to === undefined || options.to === null){
-			return resultFile;
-		}
-
-		/*
-
-		Determine Paths
-
-		*/
-
-		let to = options.to.split("/");
-		let fileName = to.splice(-1);
-		let dir = to.join("/");
-
-		/*
-
-		Create Directory
-
-		*/
-
-		if(!fs.existsSync(dir)){
-			fs.mkdirSync(dir,{recursive:true});
-		}
-
-		/*
-
-		Write File
-
-		*/
-
-		fs.writeFileSync(dir+"/"+fileName, resultFile, "utf8");
-
-		return true;
-	};
-
-	/*
-
-	CSS
-
-	*/
-	
-	minify.css = async css => {
-		let result = await postcss([
-				cssvariables(),
-				autoprefixer({overrideBrowserslist: bList})
-				]).process(css,{from: undefined});
-		return result.css;
+	if(typeof files === "string"){
+		files = [files];
 	}
 
-	module.exports = minify;
-})();
+	let fileOutput = "";
+	let fileType;
+
+	/*
+
+	Parse Files
+
+	*/
+
+	for(let file of files){
+		if(!fs.existsSync(file)){
+			continue;
+		}
+
+		let ext = file.match(/\.([^.]+)$/);
+		if(fileType === undefined){
+			if(ext === null || !supported.includes(ext[1])){
+				continue;
+			}
+			ext = ext[1];
+			fileType = ext;
+		}
+
+		let fileStr;
+
+		if(fileType === "js"){
+
+			/*
+
+			JavaScript
+
+			*/
+
+			fileStr = jscompose(file);
+		} else if (fileType === "html"){
+
+			/*
+
+			HTML
+
+			*/
+
+			fileStr = fs.readFileSync(file).toString();
+		} else {
+
+			/*
+
+			SCSS & CSS
+
+			*/
+
+			if(fileType === "scss"){
+				fileStr = sass.renderSync({
+					file: file
+				});
+				fileStr = fileStr.css.toString();
+			} else if(fileType === "css"){
+				fileStr = fs.readFileSync(file).toString();
+			}
+			fileStr = await minify.css(fileStr);
+		}
+
+		fileOutput += fileStr;
+	}
+
+	if(fileType === undefined){
+		return false;
+	}
+
+	fileType = fileType === "scss" ? "css" : fileType;
+	let resultFile = fileOutput ? await m[fileType](fileOutput,o) : "";
+
+	if(options.to === undefined || options.to === null){
+		return resultFile;
+	}
+
+	/*
+
+	Determine Paths
+
+	*/
+
+	let to = options.to.split("/");
+	let fileName = to.splice(-1);
+	let dir = to.join("/");
+
+	/*
+
+	Create Directory
+
+	*/
+
+	if(!fs.existsSync(dir)){
+		fs.mkdirSync(dir,{recursive:true});
+	}
+
+	/*
+
+	Write File
+
+	*/
+
+	fs.writeFileSync(dir+"/"+fileName, resultFile, "utf8");
+
+	return true;
+};
+
+/*
+
+CSS
+
+*/
+
+minify.css = async css => {
+	let result = await postcss([
+			cssvariables(),
+			autoprefixer({overrideBrowserslist: bList})
+			]).process(css,{from: undefined});
+	return result.css;
+}
+
+export default minify;
