@@ -1,7 +1,7 @@
 process.env.test = true;
 const minify = require("../minify");
 
-let app = async () => {
+let test = async () => {
 	let jsResult = await minify("test/src/script.1.js");
 	console.log(`Minify JS:\n${jsResult}\n`);
 
@@ -17,4 +17,5 @@ let app = async () => {
 	let htmlToFileResult = await minify("test/src/dom.html",{to:"test/bundle/dom.html"});
 	console.log(`Minify HTML To File: ${htmlToFileResult}\n`);
 };
-app();
+
+test();

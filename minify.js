@@ -16,15 +16,15 @@ Minify Library
 
 	const fs = require("fs");
 
-	const m = require("minify");
-	const jscompose = require("@hqdaemon/jscompose");
-
 	const browserslist = require("browserslist");
 	const bList = browserslist("last 3 versions, > 5%");
 	const sass = require("sass");
 	const postcss = require("postcss");
 	const cssvariables = require("postcss-css-variables");
 	const autoprefixer = require("autoprefixer");
+
+	const m = require("minify");
+	const jscompose = require("@hqdaemon/jscompose");
 
 	/*
 
@@ -74,7 +74,11 @@ Minify Library
 		let fileOutput = "";
 		let fileType;
 
-		// Parse Files
+		/*
+
+		Parse Files
+
+		*/
 
 		for(let file of files){
 			if(!fs.existsSync(file)){
@@ -93,10 +97,31 @@ Minify Library
 			let fileStr;
 
 			if(fileType === "js"){
+
+				/*
+
+				JavaScript
+
+				*/
+
 				fileStr = jscompose(file);
 			} else if (fileType === "html"){
+
+				/*
+
+				HTML
+
+				*/
+
 				fileStr = fs.readFileSync(file).toString();
 			} else {
+
+				/*
+
+				SCSS & CSS
+
+				*/
+
 				if(fileType === "scss"){
 					fileStr = sass.renderSync({
 						file: file
@@ -107,6 +132,7 @@ Minify Library
 				}
 				fileStr = await minify.css(fileStr);
 			}
+
 			fileOutput += fileStr;
 		}
 
@@ -114,24 +140,50 @@ Minify Library
 			return false;
 		}
 
-		fileType = (fileType === "scss")?"css":fileType;
-		let resultFile = await m[fileType](fileOutput,o);
+		fileType = fileType === "scss" ? "css" : fileType;
+		let resultFile = fileOutput ? await m[fileType](fileOutput,o) : "";
 
 		if(options.to === undefined || options.to === null){
 			return resultFile;
 		}
 
+		/*
+
+		Determine Paths
+
+		*/
+
 		let to = options.to.split("/");
 		let fileName = to.splice(-1);
 		let dir = to.join("/");
 
+		/*
+
+		Create Directory
+
+		*/
+
 		if(!fs.existsSync(dir)){
 			fs.mkdirSync(dir,{recursive:true});
 		}
+
+		/*
+
+		Write File
+
+		*/
+
 		fs.writeFileSync(dir+"/"+fileName, resultFile, "utf8");
+
 		return true;
 	};
 
+	/*
+
+	CSS
+
+	*/
+	
 	minify.css = async css => {
 		let result = await postcss([
 				cssvariables(),
