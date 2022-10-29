@@ -1,5 +1,5 @@
 # Minify
-Compose &amp; Minify html, js, css, and scss.
+Compose &amp; Minify HTML, JavaScript, CSS, and SCSS.
 
 <br/>
 
@@ -35,19 +35,13 @@ minify dom.html > dom.min.html
 ```
 
 <br />
-
-## ToDo
-1. Add the ability to work with strings
-2. Add empty string check
-
-<br />
 <br />
 <br />
 <br />
 
 ## MIT License
 
-Copyright (c) HQ • [hqmode.com](https://hqmode.com)
+Copyright (c) Alexander Yermolenko • [surfy.one](https://surfy.one)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
