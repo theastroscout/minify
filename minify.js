@@ -66,6 +66,7 @@ Main object
 */
 
 let minify = async (files, options={}) => {
+	console.log("OPTIONS", options)
 
 	if(typeof files === "string"){
 		files = [files];
@@ -184,7 +185,7 @@ CSS
 
 */
 
-minify.css = async css => {
+let minifyCSS = minify.css = async css => {
 	let result = await postcss([
 			cssvariables(),
 			autoprefixer({overrideBrowserslist: bList})
@@ -192,4 +193,4 @@ minify.css = async css => {
 	return result.css;
 }
 
-export default minify;
+export { minify as default };
