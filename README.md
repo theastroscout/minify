@@ -5,14 +5,14 @@ Compose &amp; Minify HTML, JavaScript, CSS, and SCSS.
 
 ## Installation
 ```
-npm install @hqdaemon/minify
+npm install @surfy/minify
 ```
 
 ## Usage
 
 ### Node.js
 ```js
-const minify = require("@hqdaemon/minify");
+const minify = require("@surfy/minify");
 
 // To String
 let jsResult = await minify("/path_to_file/script.js");
