@@ -22,16 +22,15 @@
   },
   "homepage": "https://github.com/hqdaemon/minify#readme",
   "dependencies": {
-    "@surfy/jscompose": "",
-    "autoprefixer": "",
-    "browserslist": "",
-    "minify": "",
-    "postcss": "",
-    "postcss-css-variables": "",
-    "sass": ""
+    "@surfy/jscompose": "^1.0.0",
+    "autoprefixer": "^10.4.13",
+    "browserslist": "^4.21.5",
+    "minify": "^9.2.0",
+    "postcss": "^8.4.21",
+    "postcss-css-variables": "^0.18.0",
+    "sass": "^1.58.3"
   },
   "directories": {
     "test": "test"
-  },
-  "devDependencies": {}
+  }
 }
