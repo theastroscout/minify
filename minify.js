@@ -6,24 +6,19 @@ Minify Module
 
 */
 
-/*
+// Required libraries
 
-Required libraries
+import fs from 'fs';
 
-*/
+import browserslist from 'browserslist';
+const bList = browserslist('last 3 versions, > 5%');
 
-
-import fs from "fs";
-
-import browserslist from "browserslist";
-const bList = browserslist("last 3 versions, > 5%");
-
-import sass from "sass";
-import postcss from "postcss";
-import cssvariables from "postcss-css-variables";
-import autoprefixer from "autoprefixer";
-import { minify as m } from "minify";
-import jscompose from "@hqdaemon/jscompose";
+import sass from 'sass';
+import postcss from 'postcss';
+import cssvariables from 'postcss-css-variables';
+import autoprefixer from 'autoprefixer';
+import { minify as m } from 'minify';
+import jscompose from '@surfy/jscompose';
 
 
 /*
@@ -41,7 +36,7 @@ const o = {
 		caseSensitive: true
 	},
 	css: {
-		compatibility: "*",
+		compatibility: '*',
 	},
 	js: {
 		// ecma: 5,
@@ -57,7 +52,7 @@ Supported extentions
 
 */
 
-let supported = ["js","scss","css","html"];
+let supported = ['js','scss','css','html'];
 
 /*
 
@@ -66,13 +61,13 @@ Main object
 */
 
 let minify = async (files, options={}) => {
-	console.log("OPTIONS", options)
+	console.log('OPTIONS', options)
 
-	if(typeof files === "string"){
+	if(typeof files === 'string'){
 		files = [files];
 	}
 
-	let fileOutput = "";
+	let fileOutput = '';
 	let fileType;
 
 	/*
@@ -82,6 +77,7 @@ let minify = async (files, options={}) => {
 	*/
 
 	for(let file of files){
+
 		if(!fs.existsSync(file)){
 			continue;
 		}
@@ -97,7 +93,7 @@ let minify = async (files, options={}) => {
 
 		let fileStr;
 
-		if(fileType === "js"){
+		if(fileType === 'js'){
 
 			/*
 
@@ -106,7 +102,7 @@ let minify = async (files, options={}) => {
 			*/
 
 			fileStr = jscompose(file);
-		} else if (fileType === "html"){
+		} else if (fileType === 'html'){
 
 			/*
 
@@ -123,12 +119,12 @@ let minify = async (files, options={}) => {
 
 			*/
 
-			if(fileType === "scss"){
+			if(fileType === 'scss'){
 				fileStr = sass.renderSync({
 					file: file
 				});
 				fileStr = fileStr.css.toString();
-			} else if(fileType === "css"){
+			} else if(fileType === 'css'){
 				fileStr = fs.readFileSync(file).toString();
 			}
 			fileStr = await minify.css(fileStr);
@@ -141,8 +137,8 @@ let minify = async (files, options={}) => {
 		return false;
 	}
 
-	fileType = fileType === "scss" ? "css" : fileType;
-	let resultFile = fileOutput ? await m[fileType](fileOutput,o) : "";
+	fileType = fileType === 'scss' ? 'css' : fileType;
+	let resultFile = fileOutput ? await m[fileType](fileOutput,o) : '';
 
 	if(options.to === undefined || options.to === null){
 		return resultFile;
@@ -154,9 +150,9 @@ let minify = async (files, options={}) => {
 
 	*/
 
-	let to = options.to.split("/");
+	let to = options.to.split('/');
 	let fileName = to.splice(-1);
-	let dir = to.join("/");
+	let dir = to.join('/');
 
 	/*
 
@@ -174,7 +170,7 @@ let minify = async (files, options={}) => {
 
 	*/
 
-	fs.writeFileSync(dir+"/"+fileName, resultFile, "utf8");
+	fs.writeFileSync(dir + '/' + fileName, resultFile, 'utf8');
 
 	return true;
 };

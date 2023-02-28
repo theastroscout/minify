@@ -5,7 +5,7 @@
 const Argv = process.argv;
 const files = Argv.slice(2);
 const [In] = files;
-const minify = require("../minify");
+const minify = require('../minify');
 
 go();
 

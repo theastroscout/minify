@@ -1,6 +1,6 @@
 {
-  "name": "@hqdaemon/minify",
-  "version": "1.1.0",
+  "name": "@surfy/minify",
+  "version": "1.0.0",
   "description": "Compose & Minify HTML, JavaScript, CSS, and SCSS.",
   "main": "minify.js",
   "scripts": {
@@ -15,22 +15,23 @@
     "type": "git",
     "url": "git+https://github.com/hqdaemon/minify.git"
   },
-  "author": {
-    "name": "Alexander Yermolenko",
-    "url": "https://surfy.one"
-  },
+  "author": "Alexander Yermolenko (https://surfy.one)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hqdaemon/minify/issues"
   },
   "homepage": "https://github.com/hqdaemon/minify#readme",
   "dependencies": {
-    "@hqdaemon/jscompose": "^1.0.2",
-    "autoprefixer": "^10.2.1",
-    "browserslist": "^4.16.1",
-    "minify": "^9.1.0",
-    "postcss": "^8.2.4",
-    "postcss-css-variables": "^0.18.0",
-    "sass": "^1.32.4"
-  }
+    "@surfy/jscompose": "",
+    "autoprefixer": "",
+    "browserslist": "",
+    "minify": "",
+    "postcss": "",
+    "postcss-css-variables": "",
+    "sass": ""
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }
