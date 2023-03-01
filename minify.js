@@ -61,8 +61,7 @@ Main object
 */
 
 let minify = async (files, options={}) => {
-	console.log('OPTIONS', options)
-
+	
 	if(typeof files === 'string'){
 		files = [files];
 	}
