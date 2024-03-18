@@ -13,7 +13,7 @@ import fs from 'fs';
 import browserslist from 'browserslist';
 const bList = browserslist('last 3 versions, > 5%');
 
-import sass from 'sass';
+import * as sass from 'sass';
 import postcss from 'postcss';
 import cssvariables from 'postcss-css-variables';
 import autoprefixer from 'autoprefixer';
@@ -61,7 +61,6 @@ Main object
 */
 
 let minify = async (files, options={}) => {
-	this.options = options;
 
 	if(typeof files === 'string'){
 		files = [files];

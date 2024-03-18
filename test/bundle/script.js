@@ -1,1 +1,0 @@
-(r=>{var n=()=>{let n=function(r){return"3d module "+r}(r);return function(r){return"This is my app - "+r}(n)};n()})(params);

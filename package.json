@@ -9,31 +9,32 @@
 		"require": "./src/minify.js"
 	},
 	"scripts": {
-		"test": "node test/app test/src/file.1.js test/src/file.2.js",
+		"draft": "node test/app test/src/file.1.js test/src/file.2.js",
+		"test": "node tests/test.mjs; node tests/test.js;",
 		"minify": "node .bin/minify"
 	},
-	"type": "module",
 	"bin": {
 		"minify": ".bin/minify"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hqdaemon/minify.git"
+		"url": "git+https://github.com/theastroscout/minify.git"
 	},
 	"author": "Alexander Yermolenko (https://surfy.one)",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/hqdaemon/minify/issues"
+		"url": "https://github.com/theastroscout/minify/issues"
 	},
-	"homepage": "https://github.com/hqdaemon/minify#readme",
+	"homepage": "https://github.com/theastroscout/minify#readme",
 	"dependencies": {
 		"@surfy/jscompose": "^1.0.0",
-		"autoprefixer": "^10.4.13",
-		"browserslist": "^4.21.5",
-		"minify": "^9.2.0",
-		"postcss": "^8.4.21",
-		"postcss-css-variables": "^0.18.0",
-		"sass": "^1.58.3"
+		"autoprefixer": "^10.4.18",
+		"browserslist": "^4.23.0",
+		"caniuse-lite": "^1.0.30001599",
+		"minify": "^11.1.1",
+		"postcss": "^8.4.36",
+		"postcss-css-variables": "^0.19.0",
+		"sass": "^1.72.0"
 	},
 	"directories": {
 		"test": "test"
