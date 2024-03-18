@@ -31,7 +31,7 @@
 		"autoprefixer": "^10.4.18",
 		"browserslist": "^4.23.0",
 		"caniuse-lite": "^1.0.30001599",
-		"minify": "^11.1.1",
+		"minify": "^10.5.2",
 		"postcss": "^8.4.36",
 		"postcss-css-variables": "^0.19.0",
 		"sass": "^1.72.0"
