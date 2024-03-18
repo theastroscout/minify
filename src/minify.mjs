@@ -52,7 +52,7 @@ Supported extentions
 
 */
 
-let supported = ['js','scss','css','html'];
+let supported = ['js', 'scss', 'css', 'html'];
 
 /*
 
@@ -61,7 +61,8 @@ Main object
 */
 
 let minify = async (files, options={}) => {
-	
+	this.options = options;
+
 	if(typeof files === 'string'){
 		files = [files];
 	}
@@ -145,7 +146,7 @@ let minify = async (files, options={}) => {
 
 	/*
 
-	Determine Paths
+	Paths
 
 	*/
 
@@ -181,10 +182,12 @@ CSS
 */
 
 let minifyCSS = minify.css = async css => {
-	let result = await postcss([
-			cssvariables(),
-			autoprefixer({overrideBrowserslist: bList})
-			]).process(css,{from: undefined});
+	const options = [
+		// cssvariables(),
+		autoprefixer({overrideBrowserslist: bList})
+	];	
+
+	let result = await postcss(options).process(css,{from: undefined});
 	return result.css;
 }
 
