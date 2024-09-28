@@ -2,57 +2,27 @@
 
 /*
 
-Minify Module
+Minify
 
 */
 
-// Required libraries
-
 import fs from 'fs';
+// import { minify as m } from 'minify';
+import { minify as mHTML } from 'html-minifier-terser';
 
+// JS
+import { minify as mJS } from 'terser';
+
+// CSS
+import cssnano from 'cssnano';
+
+// SCSS
 import browserslist from 'browserslist';
 const bList = browserslist('last 3 versions, > 5%');
 
 import * as sass from 'sass';
 import postcss from 'postcss';
-import cssvariables from 'postcss-css-variables';
 import autoprefixer from 'autoprefixer';
-import { minify as m } from 'minify';
-import jscompose from '@surfy/jscompose';
-
-
-/*
-
-Options
-
-*/
-
-const o = {
-	html: {
-		removeAttributeQuotes: false,
-		removeOptionalTags: false,
-		minifyCSS: false,
-		ignoreCustomFragments: [/\{[\s\S]*?\}/],
-		caseSensitive: true
-	},
-	css: {
-		compatibility: '*',
-	},
-	js: {
-		// ecma: 5,
-	},
-	img: {
-		maxSize: 4096
-	}
-};
-
-/*
-
-Supported extentions
-
-*/
-
-let supported = ['js', 'scss', 'css', 'html'];
 
 /*
 
@@ -60,134 +30,66 @@ Main object
 
 */
 
-let minify = async (files, options={}) => {
-
-	if(typeof files === 'string'){
-		files = [files];
-	}
+let minify = async (file, output=false) => {
 
 	let fileOutput = '';
 	let fileType;
 
-	/*
 
-	Parse Files
-
-	*/
-
-	for(let file of files){
-
-		if(!fs.existsSync(file)){
-			continue;
-		}
-
-		let ext = file.match(/\.([^.]+)$/);
-		if(fileType === undefined){
-			if(ext === null || !supported.includes(ext[1])){
-				continue;
-			}
-			ext = ext[1];
-			fileType = ext;
-		}
-
-		let fileStr;
-
-		if(fileType === 'js'){
-
-			/*
-
-			JavaScript
-
-			*/
-
-			fileStr = jscompose(file);
-		} else if (fileType === 'html'){
-
-			/*
-
-			HTML
-
-			*/
-
-			fileStr = fs.readFileSync(file).toString();
-		} else {
-
-			/*
-
-			SCSS & CSS
-
-			*/
-
-			if(fileType === 'scss'){
-				fileStr = sass.renderSync({
-					file: file
-				});
-				fileStr = fileStr.css.toString();
-			} else if(fileType === 'css'){
-				fileStr = fs.readFileSync(file).toString();
-			}
-			fileStr = await minify.css(fileStr);
-		}
-
-		fileOutput += fileStr;
-	}
-
-	if(fileType === undefined){
+	if (!fs.existsSync(file)) {
+		console.log('@Surfy.Minify: No file');
 		return false;
 	}
 
-	fileType = fileType === 'scss' ? 'css' : fileType;
-	let resultFile = fileOutput ? await m[fileType](fileOutput,o) : '';
+	let minified = '';
 
-	if(options.to === undefined || options.to === null){
-		return resultFile;
+
+	if (file.endsWith('.html')) {
+
+		// HTML
+	
+		const fileString = fs.readFileSync(file);
+		minified = await mHTML(fileString.toString(), {
+			collapseWhitespace: true,
+			removeComments: true,
+			minifyCSS: true,
+			minifyJS: true
+		});
+
+	} else if (file.endsWith('.js')) {
+
+		// JS
+
+		const fileString = fs.readFileSync(file);
+		const result = await mJS(fileString.toString());
+		minified = result.code;
+
+	} else if (file.endsWith('.css')) {
+
+		// CSS
+
+		const fileString = fs.readFileSync(file);
+		const result = await cssnano.process(fileString.toString());
+		minified = result.css;
+
+	} else if (file.endsWith('.scss')) {
+		
+		// SCSS
+
+		const fileString = sass.compile(file, { style: 'compressed' }).css;
+
+		minified = await postcss([
+			autoprefixer({ overrideBrowserslist: bList })
+		])
+		.process(fileString, { from: undefined }).css;
 	}
 
-	/*
-
-	Paths
-
-	*/
-
-	let to = options.to.split('/');
-	let fileName = to.splice(-1);
-	let dir = to.join('/');
-
-	/*
-
-	Create Directory
-
-	*/
-
-	if(!fs.existsSync(dir)){
-		fs.mkdirSync(dir,{recursive:true});
+	if (output) {
+		output = output === true ? file : output;
+		fs.writeFileSync(output, minified);
+	} else {
+		return minified;
 	}
-
-	/*
-
-	Write File
-
-	*/
-
-	fs.writeFileSync(dir + '/' + fileName, resultFile, 'utf8');
-
-	return true;
 };
 
-/*
-
-CSS
-
-*/
-
-let minifyCSS = minify.css = async css => {
-	const options = [
-		// cssvariables(),
-		autoprefixer({overrideBrowserslist: bList})
-	];	
-
-	let result = await postcss(options).process(css,{from: undefined});
-	return result.css;
-}
-
-export { minify as default };
+export default minify;

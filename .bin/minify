@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 
 'use strict';
+const minify = require('../src/minify.js');
 
-const Argv = process.argv;
-const files = Argv.slice(2);
-const [In] = files;
-const minify = require('../minify');
+(async () => {
+  const args = process.argv.slice(2);
+  const file = args[0];
 
-go();
-
-async function go(){
-	let result = await minify(In);
-	console.log(result);
-}
+  const result = await minify(file);
+  console.log(result)    
+})();
