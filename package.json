@@ -1,6 +1,6 @@
 {
 	"name": "@surfy/minify",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Compose & Minify HTML, JavaScript, CSS, and SCSS.",
 	"main": "./src/minify.js",
 	"module": "./src/minify.mjs",
