@@ -1,6 +1,7 @@
+import "script.3.js";
+require("script.2.js");
+
 ((params) => {
-	require("script.2.js");
-	import "script.3.js";
 	var app = {
 		init: () => {
 			let newParam = requiredModule3(params);

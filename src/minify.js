@@ -5,8 +5,8 @@ CommonJS Module
 */
 
 async function minify(path, output) {
-	let minifyModule = await import('./minify.mjs');
-	return minifyModule.default(path, output);
+	const { default: runMinify } = await import("./minify.mjs");
+	return runMinify(path, output);
 }
 
 module.exports = minify;

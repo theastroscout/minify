@@ -1,1 +1,1 @@
-(a=>{var b=function(A){return`This is my app - ${A}`},c=function(_){return`3d module ${_}`},d={init:()=>b(c(a))};d.init()})(params);
+import"script.3.js";require("script.2.js"),(r=>{(()=>{let e=requiredModule3(r);requiredModule2(e)})()})(params);
